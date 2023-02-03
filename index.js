@@ -39,24 +39,6 @@ function showFunctionMessage(message) {
   showMessage.innerHTML = rawHTML;
 }
 
-searchForm.addEventListener("submit", function onSearchFormSubmitted(event) {
-  event.preventDefault();
-  filteredMovies = []; //add this
-  const keyword = searchInput.value.trim().toLowerCase();
-
-  for (const movie of movies) {
-    if (movie.title.toLowerCase().includes(keyword)) {
-      filteredMovies.push(movie);
-    }
-  }
-
-  if (filteredMovies.length === 0) {
-    return alert(`There is no any movie matches keyword: ${keyword}`);
-  }
-  renderPaginator(filteredMovies.length);
-  renderMovieList(getMoviesByPage(1));
-});
-
 function renderMovieList(data) {
   let rawHTML = "";
 
@@ -157,6 +139,24 @@ dataPanel.addEventListener("click", function onPanelClick(event) {
   } else if (event.target.matches(".btn-add-favorite")) {
     addToFavorite(Number(event.target.dataset.id));
   }
+});
+
+searchForm.addEventListener("submit", function onSearchFormSubmitted(event) {
+  event.preventDefault();
+  filteredMovies = []; //add this
+  const keyword = searchInput.value.trim().toLowerCase();
+
+  for (const movie of movies) {
+    if (movie.title.toLowerCase().includes(keyword)) {
+      filteredMovies.push(movie);
+    }
+  }
+
+  if (filteredMovies.length === 0) {
+    return alert(`There is no any movie matches keyword: ${keyword}`);
+  }
+  renderPaginator(filteredMovies.length);
+  renderMovieList(getMoviesByPage(1));
 });
 
 axios
